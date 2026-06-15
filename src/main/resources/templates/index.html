@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Menú Principal</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+
+<body>
+
+	<div class="principal">
+		<h1>ABMC de Propiedades</h1>
+		<h2>
+			<span th:text="'DESI - TP Nro. 3'"></span>
+		</h2>
+	</div>
+	<table class="botones">
+		<tr>
+			<td>
+				<button type="button" onclick="window.location.href='/propiedades/nueva'">
+					Dar de Alta
+				</button>
+			</td>
+
+			<td>
+				<button type="button" onclick="window.location.href='/propiedades'">
+					Gestionar Propiedades
+				</button>
+			</td>
+
+			<td>
+				<button type="button" onclick="window.location.href='/propiedades/buscar'">
+					Buscar Propiedades
+				</button>
+			</td>
+		</tr>
+	</table>
+
+</body>
+
+</html>
