@@ -56,6 +56,8 @@ public class Contrato {
 	
 	@OneToMany(mappedBy = "contrato", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<HistorialEstadoContrato> historialEstados = new ArrayList<>();
+	
+	private Boolean eliminada = false;
 
 	public Long getId() {
 		return id;
@@ -135,6 +137,14 @@ public class Contrato {
 
 	public void setHistorialEstados(List<HistorialEstadoContrato> historialEstados) {
 		this.historialEstados = historialEstados;
+	}
+
+	public Boolean getEliminada() {
+		return eliminada;
+	}
+
+	public void setEliminada(Boolean eliminada) {
+		this.eliminada = eliminada;
 	}
 
 	@Override
