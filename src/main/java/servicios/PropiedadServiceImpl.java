@@ -78,6 +78,14 @@ public class PropiedadServiceImpl implements PropiedadService {
 
             EstadoDisponibilidad estadoAnterior = propiedadActual.getEstadoDisponibilidad();
 
+            // Regla: no permitir cambiar a DISPONIBLE o INACTIVA si existe contrato ACTIVO
+            if ((propiedad.getEstadoDisponibilidad() == EstadoDisponibilidad.DISPONIBLE
+                    || propiedad.getEstadoDisponibilidad() == EstadoDisponibilidad.INACTIVA)
+                    && contratoRepo.existsByPropiedadIdAndEstadoContrato(propiedadActual.getId(), EstadoContrato.ACTIVO)) {
+                throw new Excepcion("No se puede cambiar el estado a " + propiedad.getEstadoDisponibilidad()
+                        + " mientras exista un contrato activo para la propiedad.");
+            }
+
             propiedadActual.setDireccion(propiedad.getDireccion());
             propiedadActual.setCiudad(propiedad.getCiudad());
             propiedadActual.setTipoPropiedad(propiedad.getTipoPropiedad());
@@ -104,6 +112,16 @@ public class PropiedadServiceImpl implements PropiedadService {
     public void deleteById(Long id) {
 
         Propiedad propiedad = getById(id);
+
+        if (propiedad == null) {
+            throw new Excepcion("No se encontró la propiedad a eliminar.");
+        }
+
+        // No se podrá eliminar si tiene contrato activo vigente
+        boolean tieneContratoActivo = contratoRepo.existsByPropiedadIdAndEstadoContrato(propiedad.getId(), EstadoContrato.ACTIVO);
+        if (tieneContratoActivo) {
+            throw new Excepcion("No se puede eliminar la propiedad porque tiene un contrato activo vigente.");
+        }
 
         if (propiedad != null) {
             propiedad.setEliminada(true);

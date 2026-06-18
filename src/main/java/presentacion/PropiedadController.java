@@ -75,7 +75,13 @@ public class PropiedadController {
     @GetMapping("/propiedades/eliminar/{id}")
     public String eliminar(@PathVariable Long id) {
 
-        propiedadService.deleteById(id);
+        try {
+            propiedadService.deleteById(id);
+        } catch (Excepcion e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("propiedades", propiedadService.getAll());
+            return "Propiedades/listado";
+        }
 
         return "redirect:/propiedades";
     }
