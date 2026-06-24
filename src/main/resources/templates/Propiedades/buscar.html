@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Buscar Propiedades</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+
+<body>
+
+	<div class="principal">
+		<h1>ABMC de Propiedades</h1>
+		<h2>Buscar Propiedades</h2>
+	</div>
+
+	<form th:action="@{/propiedades/buscar}" th:object="${formBean}" method="post">
+
+		<p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error">
+		</p>
+
+		<table border="1" style="align-self: center;">
+
+			<tr>
+				<td><label>Dirección</label></td>
+				<td>
+					<input type="text" th:field="*{direccion}" />
+				</td>
+			</tr>
+
+			<tr>
+				<td><label>Ciudad</label></td>
+				<td>
+					<select th:field="*{ciudadSeleccionada}">
+						<option th:value="null">Seleccione una opción</option>
+						<option th:each="c : ${allCiudades}" th:value="${c.id}" th:text="${c.nombre}">
+						</option>
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label>Tipo de Propiedad</label></td>
+				<td>
+					<select th:field="*{tipoSeleccionado}">
+						<option th:value="null">Seleccione una opción</option>
+						<option th:each="t : ${allTiposPropiedad}" th:value="${t}" th:text="${t}">
+						</option>
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<td><label>Estado de Disponibilidad</label></td>
+				<td>
+					<select th:field="*{estadoSeleccionado}">
+						<option th:value="null">Seleccione una opción</option>
+						<option th:each="e : ${allEstadosDisponibilidad}" th:value="${e}" th:text="${e}">
+						</option>
+					</select>
+				</td>
+			</tr>
+
+		</table>
+
+
+
+		<table class="botones">
+			<tr>
+				<td>
+					<button type="submit" name="action" value="actionBuscar">
+						Buscar
+					</button>
+				</td>
+
+				<td>
+					<button type="submit" name="action" value="actionCancelar">
+						Cancelar
+					</button>
+				</td>
+
+				<td>
+					<button type="submit" name="action" value="actionRegistrar">
+						Dar de Alta
+					</button>
+				</td>
+				
+			</tr>
+		</table>
+
+
+
+		<table class="resultados" border="1" style="align-self: center;">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Dirección</th>
+					<th>Ciudad</th>
+					<th>Tipo</th>
+					<th>Ambientes</th>
+					<th>Metros²</th>
+					<th>Estado</th>
+					<th>Propietario</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="p : ${resultados}">
+					<td th:text="${p.id}"></td>
+					<td th:text="${p.direccion}"></td>
+					<td th:text="${p.ciudad.nombre}"></td>
+					<td th:text="${p.tipoPropiedad}"></td>
+					<td th:text="${p.cantidadAmbientes}"></td>
+					<td th:text="${p.metrosCuadrados}"></td>
+					<td th:text="${p.estadoDisponibilidad}"></td>
+					<td th:text="${p.propietario.nombre + ' ' + p.propietario.apellido}"></td>
+
+					<td>
+						<a th:href="@{/propiedades/editar/{id}(id=${p.id})}">
+							Editar
+						</a>
+					</td>
+
+					<td>
+						<a th:href="@{/propiedades/eliminar/{id}(id=${p.id})}"
+							onclick="return confirm('¿Está seguro que desea eliminar esta propiedad?');">
+							Eliminar
+						</a>
+					</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+
+	</form>
+
+</body>
+
+</html>

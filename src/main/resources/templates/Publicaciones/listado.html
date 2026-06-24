@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Publicaciones</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+
+    <div class="principal">
+        <h1>Listado de Publicaciones</h1>
+        <h2>Filtros de Búsqueda</h2>
+    </div>
+
+    <div th:if="${error}" style="color: red; font-weight: bold; text-align: center; margin: 15px;">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form th:action="@{/publicaciones/filtrar}" th:object="${formBean}" method="post">
+        <table border="1" style="margin: 0 auto;">
+            <tr>
+                <td><label>Propiedad:</label></td>
+                <td>
+                    <select th:field="*{propiedadSeleccionada}">
+                        <option th:value="${null}">Todas las Propiedades</option>
+                        <option th:each="p : ${allPropiedades}" th:value="${p.id}" th:text="${p.direccion}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Ciudad:</label></td>
+                <td>
+                    <select th:field="*{ciudadSeleccionada}">
+                        <option th:value="${null}">Todas las Ciudades</option>
+                        <option th:each="c : ${allCiudades}" th:value="${c.id}" th:text="${c.nombre}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Estado de Publicación:</label></td>
+                <td>
+                    <select th:field="*{estadoSeleccionado}">
+                        <option th:value="${null}">Todos los Estados</option>
+                        <option th:each="e : ${allEstadosPublicacion}" th:value="${e}" th:text="${e}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Precio Mensual Mínimo ($):</label></td>
+                <td><input type="number" step="0.01" th:field="*{precioMinimo}"></td>
+            </tr>
+            <tr>
+                <td><label>Precio Mensual Máximo ($):</label></td>
+                <td><input type="number" step="0.01" th:field="*{precioMaximo}"></td>
+            </tr>
+        </table>
+
+        <table class="botones" style="margin: 15px auto;">
+            <tr>
+                <td><button type="submit">Aplicar Filtros</button></td>
+                <td><button type="button" onclick="location.href='/publicaciones'">Limpiar Filtros</button></td>
+                <td><button type="button" onclick="location.href='/publicaciones/nueva'">Nueva Publicación</button></td>
+            </tr>
+        </table>
+    </form>
+
+    <br>
+
+    <table border="1" class="resultados" style="margin: 0 auto; width: 90%;">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Dirección Propiedad</th>
+                <th>Ciudad</th>
+                <th>Precio Mensual</th>
+                <th>Fecha Publicación</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${#lists.isEmpty(publicaciones)}">
+                <td colspan="7" style="text-align: center; color: gray;">No se encontraron publicaciones activas que coincidan con la búsqueda.</td>
+            </tr>
+            <tr th:each="p : ${publicaciones}">
+                <td th:text="${p.id}"></td>
+                <td th:text="${p.propiedad.direccion}"></td>
+                <td th:text="${p.propiedad.ciudad.nombre}"></td>
+                <td th:text="${'$' + p.precioMensual}"></td>
+                <td th:text="${#temporals.format(p.fechaPublicacion, 'dd/MM/yyyy')}"></td>
+                <td th:text="${p.estadoPublicacion}" 
+                    th:style="${p.estadoPublicacion.name() == 'ACTIVA' ? 'color:green;font-weight:bold;' : (p.estadoPublicacion.name() == 'PAUSADA' ? 'color:orange;' : 'color:red;')}">
+                </td>
+                <td>
+                    <a th:href="@{/publicaciones/editar/{id}(id=${p.id})}">Editar</a>
+                    | 
+                    <a th:href="@{/publicaciones/eliminar/{id}(id=${p.id})}" 
+                       th:onclick="return confirm('¿Está seguro que desea eliminar de forma lógica esta publicación?');" 
+                       style="color: red;">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br><br>
+    <div class="menu" style="text-align: center;">
+        <button type="button" onclick="location.href='/'">Menú Principal (Inicio)</button>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Editar Propiedad</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+
+<body>
+
+	<div class="principal">
+
+		<h1>Editar Propiedad</h1>
+
+		<div th:if="${error}">
+			<p th:text="${error}"></p>
+		</div>
+
+		<form th:action="@{/propiedades/guardar}" th:object="${propiedad}" method="post">
+
+			<input type="hidden" th:field="*{id}">
+
+			<div>
+				<label>ID:</label>
+				<input type="text" th:value="${propiedad.id}" readonly>
+			</div>
+
+			<br>
+
+			<div>
+				<label>Dirección:</label>
+				<input type="text" th:field="*{direccion}">
+				<span th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></span>
+			</div>
+
+			<br>
+
+			<div>
+				<label>Ciudad:</label>
+				<select th:field="*{ciudad}">
+					<option value="">Seleccione una ciudad</option>
+					<option th:each="c : ${ciudades}" th:value="${c.id}" th:text="${c.nombre}">
+					</option>
+				</select>
+				<span th:if="${#fields.hasErrors('ciudad')}" th:errors="*{ciudad}"></span>
+			</div>
+
+			<br>
+
+			<div>
+				<label>Tipo de Propiedad:</label>
+				<select th:field="*{tipoPropiedad}">
+					<option value="">Seleccione un tipo</option>
+					<option th:each="t : ${tiposPropiedad}" th:value="${t}" th:text="${t}">
+					</option>
+				</select>
+				<span th:if="${#fields.hasErrors('tipoPropiedad')}" th:errors="*{tipoPropiedad}"></span>
+			</div>
+
+			<br>
+
+			<div>
+				<label>Cantidad de Ambientes:</label>
+				<input type="number" th:field="*{cantidadAmbientes}">
+				<span th:if="${#fields.hasErrors('cantidadAmbientes')}" th:errors="*{cantidadAmbientes}"></span>
+			</div>
+
+			<br>
+
+			<div>
+				<label>Metros Cuadrados:</label>
+				<input type="number" step="0.01" th:field="*{metrosCuadrados}">
+				<span th:if="${#fields.hasErrors('metrosCuadrados')}" th:errors="*{metrosCuadrados}"></span>
+			</div>
+
+			<br>
+
+			<div>
+				<label>Descripción:</label>
+				<textarea th:field="*{descripcion}"></textarea>
+				<span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></span>
+			</div>
+			<br>
+
+			<div>
+				<label>Estado de Disponibilidad:</label>
+
+				<select th:field="*{estadoDisponibilidad}">
+					<option value="">Disponible (por defecto)</option>
+
+					<option th:each="e : ${estadosDisponibilidad}" th:value="${e}" th:text="${e}">
+					</option>
+				</select>
+
+				<span th:if="${#fields.hasErrors('estadoDisponibilidad')}" th:errors="*{estadoDisponibilidad}">
+				</span>
+			</div>
+			<br>
+
+			<div>
+				<label>Propietario:</label>
+				<select th:field="*{propietario}">
+					<option value="">Seleccione un propietario</option>
+					<option th:each="p : ${propietarios}" th:value="${p.id}" th:text="${p.nombre + ' ' + p.apellido}">
+					</option>
+				</select>
+				<span th:if="${#fields.hasErrors('propietario')}" th:errors="*{propietario}"></span>
+			</div>
+
+			<br>
+
+			<button type="submit">
+				Guardar
+			</button>
+
+		</form>
+
+		<br>
+
+		<div class="menu">
+			<button type="button"
+			           onclick="location.href='/'">
+			       Inicio
+			   </button>
+
+			   <button type="button"
+			           onclick="location.href='/propiedades'">
+			       Gestionar Propiedades
+			   </button>
+
+			   <button type="button"
+			           onclick="location.href='/propiedadesBuscar'">
+			       Buscar Propiedades
+			   </button>
+		</div>
+
+</body>
+
+</html>
