@@ -13,12 +13,17 @@ import entidades.HistorialEstadoPropiedad;
 import entidades.Propiedad;
 import excepciones.Excepcion;
 import presentacion.PropiedadBuscarForm;
+//import accesoDatos.ContratoRepo;
+//import entidades.EstadoContrato;
 
 @Service
 public class PropiedadServiceImpl implements PropiedadService {
 
     @Autowired
     private PropiedadRepo propiedadRepo;
+    
+    /*@Autowired
+    private ContratoRepo contratoRepo;*/
 
     @Override
     public List<Propiedad> getAll() {
@@ -77,6 +82,22 @@ public class PropiedadServiceImpl implements PropiedadService {
             }
 
             EstadoDisponibilidad estadoAnterior = propiedadActual.getEstadoDisponibilidad();
+            
+         // Descomentar cuando ContratoRepo y EstadoContrato estén integrados.
+            /*
+            boolean tieneContratoActivo = contratoRepo.existsByPropiedadIdAndEstadoContrato(
+                    propiedadActual.getId(),
+                    EstadoContrato.ACTIVO);
+
+            if (tieneContratoActivo
+                    && (propiedad.getEstadoDisponibilidad() == EstadoDisponibilidad.DISPONIBLE
+                    || propiedad.getEstadoDisponibilidad() == EstadoDisponibilidad.INACTIVA)) {
+
+                throw new Excepcion("No se puede cambiar el estado a "
+                        + propiedad.getEstadoDisponibilidad()
+                        + " mientras exista un contrato activo para la propiedad.");
+            }
+            */
 
             propiedadActual.setDireccion(propiedad.getDireccion());
             propiedadActual.setCiudad(propiedad.getCiudad());
@@ -101,16 +122,27 @@ public class PropiedadServiceImpl implements PropiedadService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    @Transactional
+    public void deleteById(Long id) throws Excepcion {
 
         Propiedad propiedad = getById(id);
 
-        if (propiedad != null) {
-            propiedad.setEliminada(true);
-            propiedadRepo.save(propiedad);
+        if (propiedad == null) {
+           throw new Excepcion("No se encontró la propiedad a eliminar.");
         }
-    }
+/*
+        boolean tieneContratoActivo = contratoRepo.existsByPropiedadIdAndEstadoContrato(
+                propiedad.getId(),
+                EstadoContrato.ACTIVO);
 
+        if (tieneContratoActivo) {
+            throw new Excepcion("No se puede eliminar la propiedad porque tiene un contrato activo vigente.");
+        }
+*/
+        propiedad.setEliminada(true);
+        propiedadRepo.save(propiedad);
+    }
+    
     @Override
     public List<Propiedad> filter(PropiedadBuscarForm filter) throws Excepcion {
 
