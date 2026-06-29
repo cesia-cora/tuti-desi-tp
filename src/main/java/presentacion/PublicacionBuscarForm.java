@@ -1,4 +1,3 @@
-
 package presentacion;
 
 import entidades.EstadoPublicacion;
@@ -12,7 +11,7 @@ public class PublicacionBuscarForm {
 
     public PublicacionBuscarForm() {}
 
-    // getters y setters
+    // Getters y Setters
     public Long getPropiedadSeleccionada() { return propiedadSeleccionada; }
     public void setPropiedadSeleccionada(Long propiedadSeleccionada) { this.propiedadSeleccionada = propiedadSeleccionada; }
 
