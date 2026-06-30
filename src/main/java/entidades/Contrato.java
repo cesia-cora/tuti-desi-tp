@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 @Entity
+@Table(name = "contrato")
 public class Contrato {
 	
 	public Contrato() {
@@ -42,8 +43,6 @@ public class Contrato {
 	@Column(nullable = false)
 	private double importeMensual;
 	
-	@Min(value = 1, message = "El día no puede ser menor a 1")
-	@Max(value = 31, message = "El día no puede ser mayor a 31")
 	@Column(nullable = false)
 	private LocalDate diaVencMensual;
 	

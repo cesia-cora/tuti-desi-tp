@@ -17,6 +17,8 @@ import jakarta.validation.Valid;
 import servicios.CiudadService;
 import servicios.PersonaService;
 import servicios.PropiedadService;
+import org.springframework.web.bind.annotation.RequestParam;
+import entidades.Ciudad;
 
 @Controller
 public class PropiedadController {
@@ -73,7 +75,7 @@ public class PropiedadController {
     }
 
     @GetMapping("/propiedades/eliminar/{id}")
-    public String eliminar(@PathVariable Long id) {
+    public String eliminar(@PathVariable Long id, Model model) {
 
         try {
             propiedadService.deleteById(id);
@@ -98,7 +100,7 @@ public class PropiedadController {
             model.addAttribute("tiposPropiedad", TipoPropiedad.values());
             model.addAttribute("estadosDisponibilidad", EstadoDisponibilidad.values());
 
-            return "Propiedades/alta";
+            return "Propiedades";
         }
 
         try {
@@ -118,6 +120,6 @@ public class PropiedadController {
             return "Propiedades/alta";
         }
 
-        return "redirect:/propiedades/nueva";
+        return "redirect:/propiedades";
     }
 }
