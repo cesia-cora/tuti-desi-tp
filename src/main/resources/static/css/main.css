@@ -1,0 +1,134 @@
+:root {
+    --color-primario: #1e3a8a; /* Azul corporativo */
+    --color-secundario: #475569;
+    --color-exito: #16a34a;
+    --color-peligro: #dc2626;
+    --color-advertencia: #ca8a04;
+    --fondo-gris: #f8fafc;
+    --borde: #cbd5e1;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--fondo-gris);
+    color: #334155;
+    margin: 0;
+    padding: 20px;
+}
+
+.contenedor-principal {
+    max-width: 1000px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+h1, h2 {
+    color: var(--color-primario);
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 10px;
+}
+
+/* Tablas de gestión estilizadas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #ffffff;
+}
+
+th {
+    background-color: var(--color-primario) !important;
+    color: white !important;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid var(--borde);
+}
+
+tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* Formularios profesionales */
+.formulario-estilizado, form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.grupo-campo, div {
+    margin-bottom: 12px;
+}
+
+label {
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 5px;
+    color: var(--color-secundario);
+}
+
+input[type="text"], input[type="number"], input[type="date"], select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* Botones con transiciones */
+button, .btn-principal, .btn-buscar {
+    background-color: var(--color-primario);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+button:hover, .btn-principal:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-secundario {
+    background-color: var(--color-secundario);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Estados Visuales (Badges) */
+[class^="badge-"] {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    display: inline-block;
+}
+.badge-PENDIENTE { background-color: var(--color-advertencia); }
+.badge-PAGADA { background-color: var(--color-exito); }
+.badge-ANULADA, .badge-VENCIDA { background-color: var(--color-peligro); }
+
+/* Alertas de error en validación */
+.alerta-error, .error, span[th\:if] {
+    background-color: #fee2e2;
+    color: var(--color-peligro);
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    display: block;
+    margin-top: 5px;
+}

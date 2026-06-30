@@ -22,5 +22,13 @@ public class CiudadServiceImpl implements CiudadService {
         return ciudadRepo.findAll();
     }
 
-    
+    @Override
+    public Ciudad save(Ciudad ciudad) {
+        return ciudadRepo.save(ciudad);
+    }
+
+    @Override
+    public Ciudad getById(Long id) {
+        return ciudadRepo.findById(id).orElse(null);
+    }
 }

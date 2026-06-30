@@ -2,7 +2,7 @@ package presentacion;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.Model; // <-- ESTA IMPORTACIÓN ES CRÍTICA PARA RECONOCER EL OBJETO MODEL
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +17,8 @@ import jakarta.validation.Valid;
 import servicios.CiudadService;
 import servicios.PersonaService;
 import servicios.PropiedadService;
+import org.springframework.web.bind.annotation.RequestParam;
+import entidades.Ciudad;
 
 @Controller
 public class PropiedadController {
@@ -98,7 +100,7 @@ public class PropiedadController {
             model.addAttribute("tiposPropiedad", TipoPropiedad.values());
             model.addAttribute("estadosDisponibilidad", EstadoDisponibilidad.values());
 
-            return "Propiedades/alta";
+            return "Propiedades";
         }
 
         try {
@@ -118,6 +120,6 @@ public class PropiedadController {
             return "Propiedades/alta";
         }
 
-        return "redirect:/propiedades/nueva";
+        return "redirect:/propiedades";
     }
 }

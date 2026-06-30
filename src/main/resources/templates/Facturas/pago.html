@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Facturas</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+    <div class="contenedor-principal">
+        <h1>Listado de Facturas</h1>
+        
+        <div>
+            <button type="button" onclick="window.location.href='/facturas/nueva'">+ Generar Nueva Factura</button>
+            <button type="button" class="btn-secundario" onclick="window.location.href='/'">Volver al Menú</button>
+        </div>
+
+        <div th:if="${error}" class="alerta-error">
+            <p th:text="${error}"></p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Concepto</th>
+                    <th>Importe</th>
+                    <th>Emisión</th>
+                    <th>Vencimiento</th>
+                    <th>Estado</th>
+                    <th>Contrato ID</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="f : ${facturas}">
+                    <td th:text="${f.id}"></td>
+                    <td th:text="${f.conceptoFacturado}"></td>
+                    <td th:text="'$' + ${f.importe}"></td>
+                    <td th:text="${f.fechaEmision}"></td>
+                    <td th:text="${f.fechaVencimiento}"></td>
+                    <td>
+                        <span th:class="'badge-' + ${f.estado}" th:text="${f.estado}"></span>
+                    </td>
+                    <td th:text="${f.contrato.id}"></td>
+                    <td>
+                        <a th:if="${f.estado.name() == 'PENDIENTE'}" 
+                           th:href="@{/facturas/pagar/{id}(id=${f.id})}">Pagar</a>
+                        
+                        <a th:if="${f.estado.name() == 'PENDIENTE'}" 
+                           th:href="@{/facturas/eliminar/{id}(id=${f.id})}" 
+                           onclick="return confirm('¿Seguro que desea eliminar/anular esta factura?');">Anular</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(facturas)}">
+                    <td colspan="8" style="text-align: center;">No hay facturas registradas.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

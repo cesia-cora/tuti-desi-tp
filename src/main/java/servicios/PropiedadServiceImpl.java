@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import accesoDatos.ContratoRepo;
 import accesoDatos.PropiedadRepo;
+import accesoDatos.ContratoRepo; 
 import entidades.EstadoDisponibilidad;
+import entidades.EstadoContrato;       
 import entidades.HistorialEstadoPropiedad;
 import entidades.Propiedad;
 import excepciones.Excepcion;
@@ -19,6 +22,11 @@ public class PropiedadServiceImpl implements PropiedadService {
 
     @Autowired
     private PropiedadRepo propiedadRepo;
+    
+    @Autowired
+    private ContratoRepo contratoRepo;
+    
+	private entidades.EstadoContrato EstadoContrato;
 
     @Override
     public List<Propiedad> getAll() {
@@ -144,6 +152,9 @@ public class PropiedadServiceImpl implements PropiedadService {
             propiedad.setEliminada(true);
             propiedadRepo.save(propiedad);
         }
+
+        propiedad.setEliminada(true);
+        propiedadRepo.save(propiedad);
     }
 
     @Override
