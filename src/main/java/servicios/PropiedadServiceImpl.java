@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import accesoDatos.ContratoRepo;
 import accesoDatos.PropiedadRepo;
 import accesoDatos.ContratoRepo; 
 import entidades.EstadoDisponibilidad;
@@ -21,9 +22,11 @@ public class PropiedadServiceImpl implements PropiedadService {
 
     @Autowired
     private PropiedadRepo propiedadRepo;
-
+    
     @Autowired
-    private ContratoRepo contratoRepo; 
+    private ContratoRepo contratoRepo;
+    
+	private entidades.EstadoContrato EstadoContrato;
 
     @Override
     public List<Propiedad> getAll() {
@@ -115,7 +118,7 @@ public class PropiedadServiceImpl implements PropiedadService {
 
     @Override
     @Transactional
-    public void deleteById(Long id) throws Excepcion { // <-- CORREGIDO: Se agregó el "throws Excepcion" obligatorio
+    public void deleteById(Long id) throws Excepcion {
 
         Propiedad propiedad = getById(id);
 
