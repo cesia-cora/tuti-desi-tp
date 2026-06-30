@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Listado de Propiedades</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+
+<body>
+
+	<h1>Listado de Propiedades</h1>
+	
+	<div th:if="${error}" style="color:red; font-weight:bold; margin-bottom:15px;">
+	    <span th:text="${error}"></span>
+	</div>
+
+	<table border="1">
+
+		<tr>
+			<th>ID</th>
+			<th>Dirección</th>
+			<th>Ciudad</th>
+			<th>Tipo</th>
+			<th>Ambientes</th>
+			<th>Metros²</th>
+			<th>Estado</th>
+			<th>Propietario</th>
+			<th>Editar</th>
+			<th>Eliminar</th>
+		</tr>
+
+		<tr th:each="p : ${propiedades}">
+
+			<td th:text="${p.id}"></td>
+
+			<td th:text="${p.direccion}"></td>
+
+			<td th:text="${p.ciudad.nombre}"></td>
+
+			<td th:text="${p.tipoPropiedad}"></td>
+
+			<td th:text="${p.cantidadAmbientes}"></td>
+
+			<td th:text="${p.metrosCuadrados}"></td>
+
+			<td th:text="${p.estadoDisponibilidad}"></td>
+
+			<td th:text="${p.propietario.nombre + ' ' + p.propietario.apellido}">
+			</td>
+
+			<td>
+				<a th:href="@{/propiedades/editar/{id}(id=${p.id})}">
+					Editar
+				</a>
+
+			<td>
+				<a th:href="@{/propiedades/eliminar/{id}(id=${p.id})}">
+					Eliminar
+				</a>
+			</td>
+
+
+		</tr>
+
+	</table>
+
+	<br>
+
+
+	<div class="menu">
+		<button type="button" onclick="location.href='/'">
+			Inicio
+		</button>
+
+		<button type="button" onclick="location.href='/propiedades/nueva'">
+			Dar de Alta
+		</button>
+
+		<button type="button" onclick="location.href='/propiedades/buscar'">
+			Buscar Propiedades
+		</button>
+	</div>
+
+</body>
+
+</html>
