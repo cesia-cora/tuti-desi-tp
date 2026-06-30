@@ -13,8 +13,8 @@
             <p th:text="${error}"></p>
         </div>
 
-        <form th:action="@{/facturas/guardar}" th:object="${factura}" method="post" class="formulario">
-            <div class="grupo-form">
+        <form th:action="@{/facturas/guardar}" th:object="${factura}" method="post">
+            <div>
                 <label for="contrato">Seleccionar Contrato Vigente:</label>
                 <select id="contrato" th:field="*{contrato}" required>
                     <option value="">-- Seleccione un Contrato --</option>
@@ -23,30 +23,29 @@
                 </select>
             </div>
 
-            <div class="grupo-form">
-                <label for="concepto">Concepto de la Factura:</label>
-                <input type="text" id="concepto" th:field="*{concepto}" placeholder="Ej: Alquiler de Julio 2026" required />
+            <div>
+                <label for="conceptoFacturado">Concepto de la Factura:</label>
+                <input type="text" id="conceptoFacturado" th:field="*{conceptoFacturado}" placeholder="Ej: Alquiler de Julio 2026" required />
             </div>
 
-            <div class="grupo-form">
+            <div>
                 <label for="importe">Importe ($):</label>
                 <input type="number" id="importe" th:field="*{importe}" step="0.01" min="1" placeholder="0.00" required />
             </div>
 
-            <div class="grupo-form">
+            <div>
                 <label for="fechaEmision">Fecha de Emisión:</label>
                 <input type="date" id="fechaEmision" th:field="*{fechaEmision}" required />
             </div>
 
-            <div class="grupo-form">
+            <div>
                 <label for="fechaVencimiento">Fecha de Vencimiento:</label>
                 <input type="date" id="fechaVencimiento" th:field="*{fechaVencimiento}" required />
             </div>
 
-            <div class="botones-form">
-                <button type="submit" class="btn-guardar">Generar Factura</button>
-                <button type="button" class="btn-cancelar" onclick="window.location.href='/facturas'">Cancelar</button>
-            </div>
+            <br>
+            <button type="submit">Generar Factura</button>
+            <button type="button" class="btn-secundario" onclick="window.location.href='/facturas'">Cancelar</button>
         </form>
     </div>
 </body>
