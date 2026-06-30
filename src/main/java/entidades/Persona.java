@@ -109,4 +109,8 @@ public class Persona {
 	public void setEliminada(boolean eliminada) {
 		this.eliminada = eliminada;
 	}
+
+	public Boolean getEliminada() {
+		return eliminada;
+	}
 }

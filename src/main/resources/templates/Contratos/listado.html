@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Listado de Contratos</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+
+<body>
+  <div class="principal">
+    <h1>Contratos</h1>
+
+    <div th:if="${error}">
+      <p th:text="${error}"></p>
+    </div>
+
+    <form th:action="@{/contratos/buscar}" method="post" th:object="${formBean}">
+      <label>Propiedad:</label>
+      <select name="propiedadSeleccionada" th:field="*{propiedadSeleccionada}">
+        <option value="">Todas</option>
+        <option th:each="p : ${propiedades}" th:value="${p.id}"
+          th:text="${p.direccion + ' - ' + (p.ciudad != null ? p.ciudad.nombre : '')}"></option>
+      </select>
+
+      <label>Inquilino:</label>
+      <select name="inquilinoSeleccionado" th:field="*{inquilinoSeleccionado}">
+        <option value="">Todos</option>
+        <option th:each="i : ${inquilinos}" th:value="${i.id}" th:text="${i.nombre + ' ' + i.apellido}"></option>
+      </select>
+
+      <label>Estado:</label>
+      <select name="estadoSeleccionado" th:field="*{estadoSeleccionado}">
+        <option value="">Todos</option>
+        <option th:each="e : ${allEstadosContrato}" th:value="${e}" th:text="${e}"></option>
+      </select>
+
+      <label>Fecha inicio (desde):</label>
+      <input type="date" name="fechaInicio" th:field="*{fechaInicio}" />
+
+      <button type="submit">Filtrar</button>
+      <button type="button" onclick="location.href='/contratos'">Limpiar</button>
+    </form>
+
+    <br />
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Propiedad</th>
+          <th>Propietario</th>
+          <th>Inquilino</th>
+          <th>Fecha Inicio</th>
+          <th>Importe Mensual</th>
+          <th>Día Vencimiento</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="c : ${contratos}">
+          <td th:text="${c.id}">1</td>
+          <td th:text="${c.propiedad != null ? c.propiedad.direccion : ''}">Propiedad</td>
+          <td
+            th:text="${c.propiedad != null && c.propiedad.propietario != null ? c.propiedad.propietario.nombre + ' ' + c.propiedad.propietario.apellido : ''}">
+            Propietario</td>
+          <td th:text="${c.inquilino != null ? c.inquilino.nombre + ' ' + c.inquilino.apellido : ''}">Inquilino</td>
+          <td th:text="${#dates.format(c.fechaInicio, 'yyyy-MM-dd HH:mm')}">2026-01-01 10:00</td>
+          <td th:text="${c.importeMensual}">0.00</td>
+          <td th:text="${c.diaVencMensual}">01</td>
+          <td th:text="${c.estadoContrato}">BORRADOR</td>
+          <td>
+            <a th:href="@{'/contratos/editar/' + ${c.id}}">Editar</a>
+            &nbsp;|&nbsp;
+            <a th:href="@{'/contratos/eliminar/' + ${c.id}}"
+              onclick="return confirm('¿Eliminar contrato?')">Eliminar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <br />
+    <div class="menu">
+      <button type="button" onclick="location.href='/'">Inicio</button>
+      <button type="button" onclick="location.href='/contratos/nuevo'">Nuevo Contrato</button>
+      <button type="button" onclick="location.href='/contratos/buscar'">Búsqueda Avanzada</button>
+    </div>
+  </div>
+</body>
+
+</html>

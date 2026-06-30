@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Contratos</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+
+<body>
+    <div class="principal">
+        <h1>Buscar Contratos</h1>
+        <div th:if="${error}">
+            <p th:text="${error}"></p>
+        </div>
+
+        <form th:action="@{/contratos/buscar}" th:object="${formBean}" method="post">
+            <div>
+                <label>Propiedad:</label>
+                <select th:field="*{propiedadSeleccionada}">
+                    <option value="">Todas</option>
+                    <option th:each="p : ${propiedades}" th:value="${p.id}"
+                        th:text="${p.direccion + ' - ' + (p.ciudad != null ? p.ciudad.nombre : '')}"></option>
+                </select>
+            </div>
+
+            <div>
+                <label>Inquilino:</label>
+                <select th:field="*{inquilinoSeleccionado}">
+                    <option value="">Todos</option>
+                    <option th:each="i : ${inquilinos}" th:value="${i.id}" th:text="${i.nombre + ' ' + i.apellido}">
+                    </option>
+                </select>
+            </div>
+
+            <div>
+                <label>Estado:</label>
+                <select th:field="*{estadoSeleccionado}">
+                    <option value="">Todos</option>
+                    <option th:each="e : ${allEstadosContrato}" th:value="${e}" th:text="${e}"></option>
+                </select>
+            </div>
+
+            <div>
+                <label>Fecha inicio (desde):</label>
+                <input type="date" th:field="*{fechaInicio}" />
+            </div>
+
+            <div>
+                <button type="submit" name="action" value="actionBuscar">Buscar</button>
+                <button type="submit" name="action" value="actionCancelar">Cancelar</button>
+                <button type="submit" name="action" value="actionRegistrar">Registrar</button>
+            </div>
+        </form>
+
+        <br />
+
+        <div th:if="${resultados}">
+            <h2>Resultados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Propiedad</th>
+                        <th>Propietario</th>
+                        <th>Inquilino</th>
+                        <th>Fecha Inicio</th>
+                        <th>Importe</th>
+                        <th>Día Vto.</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="c : ${resultados}">
+                        <td th:text="${c.id}">1</td>
+                        <td th:text="${c.propiedad != null ? c.propiedad.direccion : ''}">Propiedad</td>
+                        <td
+                            th:text="${c.propiedad != null && c.propiedad.propietario != null ? c.propiedad.propietario.nombre + ' ' + c.propiedad.propietario.apellido : ''}">
+                            Propietario</td>
+                        <td th:text="${c.inquilino != null ? c.inquilino.nombre + ' ' + c.inquilino.apellido : ''}">
+                            Inquilino</td>
+                        <td th:text="${#dates.format(c.fechaInicio, 'yyyy-MM-dd HH:mm')}">2026-01-01 10:00</td>
+                        <td th:text="${c.importeMensual}">0.00</td>
+                        <td th:text="${c.diaVencMensual}">01</td>
+                        <td th:text="${c.estadoContrato}">BORRADOR</td>
+                        <td>
+                            <a th:href="@{'/contratos/editar/' + ${c.id}}">Editar</a>
+                            &nbsp;|&nbsp;
+                            <a th:href="@{'/contratos/eliminar/' + ${c.id}}"
+                                onclick="return confirm('¿Eliminar contrato?')">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <br />
+        <div class="menu">
+            <button type="button" onclick="location.href='/'">Inicio</button>
+            <button type="button" onclick="location.href='/contratos'">Listado Contratos</button>
+            <button type="button" onclick="location.href='/contratos/nuevo'">Nuevo Contrato</button>
+        </div>
+    </div>
+</body>
+
+</html>
