@@ -3,65 +3,84 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Menú Principal</title>
+	<title>Menú Principal - Sistema Inmobiliario</title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
 </head>
 
 <body>
 	
-	<div class="">
-		<h1>DESI - TP Nro. 3</h1>
-	</div>
+	<div class="contenedor-principal">
+		
+		<div>
+			<h1>DESI - TP Nro. 3</h1>
+		</div>
 
-	<div class="principal">
-		<h2>ABMC de Propiedades</h2>
-	</div>
-	<table class="botones">
-		<tr>
-			<td>
-				<button type="button" onclick="window.location.href='/propiedades/nueva'">
-					Dar de Alta
-				</button>
-			</td>
-
-			<td>
-				<button type="button" onclick="window.location.href='/propiedades'">
-					Gestionar Propiedades
-				</button>
-			</td>
-
-			<td>
-				<button type="button" onclick="window.location.href='/propiedades/buscar'">
-					Buscar Propiedades
-				</button>
-			</td>
-		</tr>
-	</table>
-	
-	<div class="principal">
+		<div class="principal">
+			<h2>ABMC de Propiedades</h2>
+		</div>
+		<table class="botones">
+			<tr>
+				<td>
+					<button type="button" onclick="window.location.href='/propiedades/nueva'">
+						Dar de Alta
+					</button>
+				</td>
+				<td>
+					<button type="button" onclick="window.location.href='/propiedades'">
+						Gestionar Propiedades
+					</button>
+				</td>
+				<td>
+					<button type="button" onclick="window.location.href='/propiedades/buscar'">
+						Buscar Propiedades
+					</button>
+				</td>
+			</tr>
+		</table>
+		
+		<div class="principal">
 			<h2>ABMC de Contratos</h2>
 		</div>
 		<table class="botones">
-				<tr>
-					<td>
-						<button type="button" onclick="window.location.href='/contratos/nuevo'">
-							Dar de Alta
-						</button>
-					</td>
+			<tr>
+				<td>
+					<button type="button" onclick="window.location.href='/contratos/nuevo'">
+						Dar de Alta
+					</button>
+				</td>
+				<td>
+					<button type="button" onclick="window.location.href='/contratos'">
+						Gestionar Contratos
+					</button>
+				</td>
+				<td>
+					<button type="button" onclick="window.location.href='/contratos/buscar'">
+						Buscar Contratos
+					</button>
+				</td>
+			</tr>
+		</table>
 
-					<td>
-						<button type="button" onclick="window.location.href='/contratos'">
-							Gestionar Contratos
-						</button>
-					</td>
+		<div class="principal">
+			<h2>Gestión de Facturas Manuales</h2>
+		</div>
+		<table class="botones">
+			<tr>
+				<td>
+					<button type="button" onclick="window.location.href='/facturas/nueva'">
+						Generar Factura
+					</button>
+				</td>
+				<td>
+					<button type="button" onclick="window.location.href='/facturas'">
+						Gestionar Facturas
+					</button>
+				</td>
+			</tr>
+		</table>
 
-					<td>
-						<button type="button" onclick="window.location.href='/contratos/buscar'">
-							Buscar Contratos
-						</button>
-					</td>
-				</tr>
-			</table>
+	</div>
+
 </body>
 
 </html>
