@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import accesoDatos.PropiedadRepo;
+import accesoDatos.ContratoRepo; 
 import entidades.EstadoDisponibilidad;
+import entidades.EstadoContrato;       
 import entidades.HistorialEstadoPropiedad;
 import entidades.Propiedad;
 import excepciones.Excepcion;
@@ -19,6 +21,9 @@ public class PropiedadServiceImpl implements PropiedadService {
 
     @Autowired
     private PropiedadRepo propiedadRepo;
+
+    @Autowired
+    private ContratoRepo contratoRepo; 
 
     @Override
     public List<Propiedad> getAll() {
@@ -109,7 +114,8 @@ public class PropiedadServiceImpl implements PropiedadService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    @Transactional
+    public void deleteById(Long id) throws Excepcion { // <-- CORREGIDO: Se agregó el "throws Excepcion" obligatorio
 
         Propiedad propiedad = getById(id);
 
@@ -123,10 +129,8 @@ public class PropiedadServiceImpl implements PropiedadService {
             throw new Excepcion("No se puede eliminar la propiedad porque tiene un contrato activo vigente.");
         }
 
-        if (propiedad != null) {
-            propiedad.setEliminada(true);
-            propiedadRepo.save(propiedad);
-        }
+        propiedad.setEliminada(true);
+        propiedadRepo.save(propiedad);
     }
 
     @Override
