@@ -19,5 +19,6 @@ public interface PropiedadService {
 
 	void deleteById(Long id) throws Excepcion;
 
+	
 	List<Propiedad> filter(PropiedadBuscarForm filter) throws Excepcion;
 }

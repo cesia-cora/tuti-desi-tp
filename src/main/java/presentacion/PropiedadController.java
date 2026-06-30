@@ -73,7 +73,7 @@ public class PropiedadController {
     }
 
     @GetMapping("/propiedades/eliminar/{id}")
-    public String eliminar(@PathVariable Long id) {
+    public String eliminar(@PathVariable Long id, Model model) {
 
         try {
             propiedadService.deleteById(id);

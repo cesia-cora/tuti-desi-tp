@@ -85,6 +85,22 @@ public class PropiedadServiceImpl implements PropiedadService {
                 throw new Excepcion("No se puede cambiar el estado a " + propiedad.getEstadoDisponibilidad()
                         + " mientras exista un contrato activo para la propiedad.");
             }
+            
+
+            
+            boolean tieneContratoActivo = contratoRepo.existsByPropiedadIdAndEstadoContrato(
+                    propiedadActual.getId(),
+                    EstadoContrato.ACTIVO);
+
+            if (tieneContratoActivo
+                    && (propiedad.getEstadoDisponibilidad() == EstadoDisponibilidad.DISPONIBLE
+                    || propiedad.getEstadoDisponibilidad() == EstadoDisponibilidad.INACTIVA)) {
+
+                throw new Excepcion("No se puede cambiar el estado a "
+                        + propiedad.getEstadoDisponibilidad()
+                        + " mientras exista un contrato activo para la propiedad.");
+            }
+            
 
             propiedadActual.setDireccion(propiedad.getDireccion());
             propiedadActual.setCiudad(propiedad.getCiudad());
@@ -109,7 +125,8 @@ public class PropiedadServiceImpl implements PropiedadService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    @Transactional
+    public void deleteById(Long id) throws Excepcion {
 
         Propiedad propiedad = getById(id);
 
