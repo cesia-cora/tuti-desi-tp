@@ -9,16 +9,13 @@
     <div class="contenedor-principal">
         <h1>Listado de Facturas</h1>
         
-        <div class="acciones-top">
+        <div>
             <button type="button" onclick="window.location.href='/facturas/nueva'">+ Generar Nueva Factura</button>
-            <button type="button" onclick="window.location.href='/'">Volver al Menú</button>
+            <button type="button" class="btn-secundario" onclick="window.location.href='/'">Volver al Menú</button>
         </div>
 
         <div th:if="${error}" class="alerta-error">
             <p th:text="${error}"></p>
-        </div>
-        <div th:if="${exito}" class="alerta-exito">
-            <p th:text="${exito}"></p>
         </div>
 
         <table>
@@ -37,22 +34,26 @@
             <tbody>
                 <tr th:each="f : ${facturas}">
                     <td th:text="${f.id}"></td>
-                    <td th:text="${f.concepto}"></td>
-                    <td th:text="'$' + ${f.importe}"></td>
-                    <td th:text="${#temporals.format(f.fechaEmision, 'dd/MM/yyyy')}"></td>
-                    <td th:text="${#temporals.format(f.fechaVencimiento, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${f.conceptoFacturado}"></td>
+                    
+                    <td th:text="${f.importe != null ? '$' + f.importe : ''}"></td>
+                    
+                    <td th:text="${f.fechaEmision}"></td>
+                    <td th:text="${f.fechaVencimiento}"></td>
+                    
                     <td>
-                        <span th:class="'badge badge-' + ${f.estadoFactura}" th:text="${f.estadoFactura}"></span>
+                        <span th:if="${f.estado != null}" th:class="'badge-' + ${f.estado}" th:text="${f.estado}"></span>
                     </td>
-                    <td th:text="${f.contrato.id}"></td>
+                    
+                    <td th:text="${f.contrato?.id}"></td>
+                    
                     <td>
-                        <a th:if="${f.estadoFactura.name() == 'PENDIENTE'}" 
-                           th:href="@{/facturas/pagar/{id}(id=${f.id})}" class="btn-tabla btn-pagar">Pagar</a>
+                        <a th:if="${f.estado?.name() == 'PENDIENTE'}" 
+                           th:href="@{/facturas/pagar/{id}(id=${f.id})}">Pagar</a>
                         
-                        <a th:if="${f.estadoFactura.name() == 'PENDIENTE'}" 
-                           th:href="@{/facturas/anular/{id}(id=${f.id})}" 
-                           class="btn-tabla btn-anular" 
-                           onclick="return confirm('¿Seguro que desea anular esta factura?');">Anular</a>
+                        <a th:if="${f.estado?.name() == 'PENDIENTE'}" 
+                           th:href="@{/facturas/eliminar/{id}(id=${f.id})}" 
+                           onclick="return confirm('¿Seguro que desea eliminar/anular esta factura?');">Anular</a>
                     </td>
                 </tr>
                 <tr th:if="${#lists.isEmpty(facturas)}">
