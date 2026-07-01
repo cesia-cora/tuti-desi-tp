@@ -114,7 +114,12 @@
 					<td th:text="${p.tipoPropiedad}"></td>
 					<td th:text="${p.cantidadAmbientes}"></td>
 					<td th:text="${p.metrosCuadrados}"></td>
-					<td th:text="${p.estadoDisponibilidad}"></td>
+					<td>
+					<span th:if="${p.estadoDisponibilidad != null}"
+							th:class="'badge-' + ${p.estadoDisponibilidad}"
+							th:text="${p.estadoDisponibilidad}">
+					</span>
+					</td>
 					<td th:text="${p.propietario.nombre + ' ' + p.propietario.apellido}"></td>
 
 					<td>

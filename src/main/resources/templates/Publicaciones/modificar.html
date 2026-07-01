@@ -16,12 +16,18 @@
 
         <form th:action="@{/publicaciones/guardar}" th:object="${publicacion}" method="post">
             
-            <input type="hidden" th:field="*{id}">
-            <input type="hidden" th:field="*{propiedad}">
+            <!--<input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{propiedad}">-->
+
+            <input type="hidden" name="propiedad.id"
+            th:value="${publicacion.propiedad != null ? publicacion.propiedad.id : ''}">
 
             <div>
                 <label>ID Publicación (Solo Lectura):</label>
-                <input type="text" th:value="${publicacion.id}" readonly>
+                <!--<input type="text" th:value="${publicacion.id}" readonly>-->
+                <input type="text"
+                    th:value="${publicacion != null and publicacion.propiedad != null ? (publicacion.propiedad.direccion + (publicacion.propiedad.ciudad != null ? ' - ' + publicacion.propiedad.ciudad.nombre : '')) : ''}"
+                    disabled style="width: 300px;">
             </div>
 
             <br>

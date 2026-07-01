@@ -92,7 +92,7 @@
                     th:style="${p.estadoPublicacion.name() == 'ACTIVA' ? 'color:green;font-weight:bold;' : (p.estadoPublicacion.name() == 'PAUSADA' ? 'color:orange;' : 'color:red;')}">
                 </td>
                 <td>
-                    <a th:href="@{/publicaciones/editar/{id}(id=${p.id})}">Editar</a>
+                    <a th:href="@{/publicaciones/modificar/{id}(id=${p.id})}">Editar</a>
                     | 
                     <a th:href="@{/publicaciones/eliminar/{id}(id=${p.id})}" 
                        th:onclick="return confirm('¿Está seguro que desea eliminar de forma lógica esta publicación?');" 

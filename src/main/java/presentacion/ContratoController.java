@@ -89,7 +89,7 @@ public class ContratoController {
             if (contrato.getId() != null) {
                 return "Contratos/editar";
             }
-            return "Contratos";
+            return "Contratos/alta";
         }
 
         try {

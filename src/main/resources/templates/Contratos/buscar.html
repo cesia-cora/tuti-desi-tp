@@ -80,7 +80,7 @@
                             Propietario</td>
                         <td th:text="${c.inquilino != null ? c.inquilino.nombre + ' ' + c.inquilino.apellido : ''}">
                             Inquilino</td>
-                        <td th:text="${#dates.format(c.fechaInicio, 'yyyy-MM-dd HH:mm')}">2026-01-01 10:00</td>
+                        <td th:text="${#temporals.format(c.fechaInicio, 'yyyy-MM-dd HH:mm')}">2026-01-01 10:00</td>
                         <td th:text="${c.importeMensual}">0.00</td>
                         <td th:text="${c.diaVencMensual}">01</td>
                         <td th:text="${c.estadoContrato}">BORRADOR</td>

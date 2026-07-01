@@ -43,7 +43,16 @@ public class ContratoServiceImpl {
 	}
 
 	public List<Contrato> filter(@Valid ContratoBuscarForm formBean) {
-		return contratoRepo.findByEliminadaFalse();
+		if (formBean == null) {
+            return contratoRepo.findByEliminadaFalse();
+        }
+
+        return contratoRepo.filtrar(
+            formBean.getPropiedadSeleccionada(),
+            formBean.getInquilinoSeleccionado(),
+            formBean.getEstadoSeleccionado(),
+            formBean.getFechaInicio()
+        );
 	}
 	
 	// Eliminación

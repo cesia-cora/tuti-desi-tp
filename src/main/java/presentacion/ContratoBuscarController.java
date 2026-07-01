@@ -41,6 +41,11 @@ public class ContratoBuscarController {
         form.setInquilinos(personaService.getAll());
 
         modelo.addAttribute("formBean", form);
+        modelo.addAttribute("propiedades", propiedadService.getAll());
+        modelo.addAttribute("inquilinos", personaService.getAll());
+        modelo.addAttribute("allEstadosContrato", entidades.EstadoContrato.values());
+
+        modelo.addAttribute("formBean", form);
 
         return "Contratos/buscar";
     }

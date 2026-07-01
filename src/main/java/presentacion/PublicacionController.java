@@ -45,11 +45,27 @@ public class PublicacionController {
     }
 
     // Muestra el formulario de Edición con datos precargados
-    @GetMapping("/editar/{id}")
-    public String editar(@PathVariable Long id, Model model) {
+    /*@GetMapping({"/editar/{id}", "/modificar/{id}"})
+    public String modificar(@PathVariable Long id, Model model) {
         Publicacion publicacion = publicacionService.getById(id);
         model.addAttribute("publicacion", publicacion);
-        return "Publicaciones/editar";
+        return "Publicaciones/modificar";
+    }*/
+
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Model model) {
+        return mostrarFormularioEdicion(id, model);
+    }
+
+    @GetMapping("/modificar/{id}")
+    public String modificar(@PathVariable Long id, Model model) {
+        return mostrarFormularioEdicion(id, model);
+    }
+
+    private String mostrarFormularioEdicion(Long id, Model model) {
+        Publicacion publicacion = publicacionService.getById(id);
+        model.addAttribute("publicacion", publicacion);
+        return "Publicaciones/modificar";
     }
 
     // Procesa la persistencia del Alta o la Modificación
@@ -60,7 +76,7 @@ public class PublicacionController {
             Model model) {
 
         if (result.hasErrors()) {
-            if (publicacion.getId() != null) return "Publicaciones/editar";
+            if (publicacion.getId() != null) return "Publicaciones/modificar";
             return "Publicaciones/alta";
         }
 
@@ -68,7 +84,7 @@ public class PublicacionController {
             publicacionService.save(publicacion);
         } catch (Excepcion e) {
             model.addAttribute("error", e.getMessage());
-            if (publicacion.getId() != null) return "Publicaciones/editar";
+            if (publicacion.getId() != null) return "Publicaciones/modificar";
             return "Publicaciones/alta";
         }
 

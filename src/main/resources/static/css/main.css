@@ -122,6 +122,70 @@ button:hover, .btn-principal:hover {
 .badge-PAGADA { background-color: var(--color-exito); }
 .badge-ANULADA, .badge-VENCIDA { background-color: var(--color-peligro); }
 
+.badge-DISPONIBLE {
+  background-color: #198754;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.badge-ALQUILADA {
+  background-color: #0d6efd;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.badge-RESERVADA {
+  background-color: #ca8a04;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.badge-INACTIVA {
+  background-color: #dc3545;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.badge-BORRADOR {
+  background-color: #6c757d;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.badge-ACTIVO {
+  background-color: #198754;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.badge-FINALIZADO {
+  background-color: #0d6efd;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.badge-RESCINDIDO {
+  background-color: #dc3545;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
 /* Alertas de error en validación */
 .alerta-error, .error, span[th\:if] {
     background-color: #fee2e2;
