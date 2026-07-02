@@ -100,7 +100,7 @@ public class PropiedadController {
             model.addAttribute("tiposPropiedad", TipoPropiedad.values());
             model.addAttribute("estadosDisponibilidad", EstadoDisponibilidad.values());
 
-            return "Propiedades";
+            return "Propiedades/alta";
         }
 
         try {
